@@ -52,6 +52,10 @@ The extension watches for the Now Playing view appearing in the right sidebar. I
 
 ## 📋 Changelog
 
+### v1.0.1
+
+- Fixed the **Stay Closed** toggle not appearing in the profile menu on manual installs.
+
 ### v1.0.0
 
 - Initial release.

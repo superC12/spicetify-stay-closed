@@ -1,9 +1,10 @@
 // NAME: Stay Closed
-// VERSION: 1.0.0
+// VERSION: 1.0.1
 // DESCRIPTION: Stops the Now Playing view from popping open on its own. It still opens when you open it yourself.
 
 (function stayClosed() {
-	if (!document.body || !window.Spicetify?.Menu) {
+	// Menu items are built with React, which Spicetify exposes a little after Menu
+	if (!document.body || !window.Spicetify?.Menu || !Spicetify.React || !Spicetify.ReactJSX) {
 		setTimeout(stayClosed, 300);
 		return;
 	}
