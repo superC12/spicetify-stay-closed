@@ -1,5 +1,5 @@
 // NAME: Stay Closed
-// VERSION: 1.0.2
+// VERSION: 1.1.0
 // DESCRIPTION: Stops the Now Playing view from popping open on its own. It still opens when you open it yourself.
 
 (function stayClosed() {
@@ -94,10 +94,38 @@
 	setInterval(check, 500);
 	check();
 
+	// Spotify has its own setting for this: Settings > "Show the now-playing panel on click of play".
+	// Switching it off stops the pop-up at the source, so do that while Stay Closed is on and put the
+	// user's own choice back when it is turned off. The watcher above stays as a second line of defence.
+	const SPOTIFY_SETTING = "toggleNowPlayingView";
+	const ORIGINAL_KEY = "stayClosed:originalSpotifySetting";
+	function syncSpotifySetting(triesLeft = 20) {
+		const store = Spicetify.Platform?.LocalStorageAPI;
+		if (!store?.getItem || !store?.setItem) {
+			if (triesLeft > 0) setTimeout(() => syncSpotifySetting(triesLeft - 1), 500);
+			return;
+		}
+		try {
+			if (enabled) {
+				if (localStorage.getItem(ORIGINAL_KEY) === null) {
+					localStorage.setItem(ORIGINAL_KEY, store.getItem(SPOTIFY_SETTING) === false ? "false" : "true");
+				}
+				if (store.getItem(SPOTIFY_SETTING) !== false) store.setItem(SPOTIFY_SETTING, false);
+			} else if (localStorage.getItem(ORIGINAL_KEY) !== null) {
+				store.setItem(SPOTIFY_SETTING, localStorage.getItem(ORIGINAL_KEY) !== "false");
+				localStorage.removeItem(ORIGINAL_KEY);
+			}
+		} catch (error) {
+			console.warn("[Stay Closed] could not change Spotify's now-playing setting", error);
+		}
+	}
+	syncSpotifySetting();
+
 	new Spicetify.Menu.Item("Stay Closed", enabled, (item) => {
 		enabled = !enabled;
 		localStorage.setItem(STORAGE_KEY, String(enabled));
 		item.setState(enabled);
+		syncSpotifySetting();
 		check();
 	}).register();
 })();
