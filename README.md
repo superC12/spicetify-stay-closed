@@ -52,6 +52,11 @@ The extension watches for the Now Playing view appearing in the right sidebar. I
 
 ## 📋 Changelog
 
+### v1.0.2
+
+- Fixed for Spotify 1.3.4, which keeps the Now Playing view in the page as a collapsed strip: the extension could mistake that strip for an open view and stop closing real pop-ups.
+- Clicks on the player bar no longer count as asking for the view.
+
 ### v1.0.1
 
 - Fixed the **Stay Closed** toggle not appearing in the profile menu on manual installs.

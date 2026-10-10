@@ -1,5 +1,5 @@
 // NAME: Stay Closed
-// VERSION: 1.0.1
+// VERSION: 1.0.2
 // DESCRIPTION: Stops the Now Playing view from popping open on its own. It still opens when you open it yourself.
 
 (function stayClosed() {
@@ -25,7 +25,19 @@
 	let attempts = 0;
 	let forgetTimer = null;
 
-	const isOpen = () => document.querySelector(NPV) !== null;
+	// Newer Spotify versions keep the view in the page as a thin collapsed strip, so "open" means it has real width
+	const MIN_OPEN_WIDTH = 150;
+	const isOpen = () => [...document.querySelectorAll(NPV)].some((el) => el.getBoundingClientRect().width >= MIN_OPEN_WIDTH);
+
+	// True for clicks in the right-hand sidebar area (its expand arrow, another panel's close button and so on)
+	function inRightSidebar(event) {
+		const main = document.querySelector("#main-view") ?? document.querySelector("main");
+		const bar = document.querySelector('[data-testid="now-playing-bar"]');
+		if (!main) return false;
+		const right = main.getBoundingClientRect().right;
+		const bottom = bar ? bar.getBoundingClientRect().top : window.innerHeight;
+		return event.clientX >= right && event.clientY >= main.getBoundingClientRect().top && event.clientY < bottom;
+	}
 
 	function closeView() {
 		const panel = document.querySelector(NPV)?.closest("aside, [class*='sidebar' i]") ?? document;
@@ -69,8 +81,8 @@
 			if (isOpen()) {
 				if (onToggle || onCloser) allowed = false;
 				// Closing the queue or another panel can hand the sidebar back to the view
-				else if (event.target.closest("aside")) lastIntent = Date.now();
-			} else if (onToggle || event.target.closest("aside")) {
+				else if (inRightSidebar(event)) lastIntent = Date.now();
+			} else if (onToggle || inRightSidebar(event)) {
 				lastIntent = Date.now();
 			}
 		},
@@ -78,6 +90,8 @@
 	);
 
 	new MutationObserver(check).observe(document.body, { childList: true, subtree: true });
+	// The strip can widen into the view without adding or removing elements, which the observer would miss
+	setInterval(check, 500);
 	check();
 
 	new Spicetify.Menu.Item("Stay Closed", enabled, (item) => {
