@@ -54,22 +54,17 @@ It also turns off Spotify's own setting **Show the now-playing panel on click of
 
 ## 📋 Changelog
 
+Release notes below group related updates; existing Git commits and published version identifiers are preserved. Basic controls are described with the initial feature release.
+
 ### v1.1.0
 
-- Now switches off Spotify's own "Show the now-playing panel on click of play" setting while Stay Closed is on, which stops the pop-up at the source. Your original choice is restored when you turn Stay Closed off in the profile menu.
-
-### v1.0.2
-
-- Fixed for Spotify 1.3.4, which keeps the Now Playing view in the page as a collapsed strip: the extension could mistake that strip for an open view and stop closing real pop-ups.
-- Clicks on the player bar no longer count as asking for the view.
-
-### v1.0.1
-
-- Fixed the **Stay Closed** toggle not appearing in the profile menu on manual installs.
+- Switches off Spotify's **Show the now-playing panel on click of play** setting while enabled and restores the original choice when disabled.
 
 ### v1.0.0
 
-- Initial release.
+- Initial release: closes automatically opened Now Playing views while preserving deliberate opens.
+- Profile-menu toggle works on manual installs.
+- Handles Spotify 1.3.4's collapsed sidebar strip; ordinary player-bar clicks do not count as requesting the view.
 
 ## License
 
