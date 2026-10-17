@@ -50,7 +50,7 @@ The extension watches for the Now Playing view appearing in the right sidebar. I
 It also turns off Spotify's own setting **Show the now-playing panel on click of play** (Settings → Display) while it is switched on. Turning Stay Closed off in the profile menu puts that setting back the way you had it.
 
 > [!NOTE]
-> Tested on Spotify 1.3.3 with Spicetify 2.45.3. Spotify renames its internal elements from time to time, so a Spotify update can break this until the extension is updated. If the view starts popping up again, please [open an issue](https://github.com/superC12/spicetify-stay-closed/issues) with your Spotify version.
+> Tested on Spotify 1.3.3 with Spicetify 2.45.3, and updated for 1.3.4 and 1.3.5: the elements and the Spotify setting it relies on are present in both. Spotify renames its internal elements from time to time, so a Spotify update can break this until the extension is updated. If the view starts popping up again, please [open an issue](https://github.com/superC12/spicetify-stay-closed/issues) with your Spotify version.
 
 ## 📋 Changelog
 
