@@ -1,8 +1,12 @@
 {
 	"name": "Stay Closed",
 	"description": "Stops the Now Playing view from popping open on its own. It still opens when you click the cover art.",
-	"preview": "preview.png",
+	"preview": "preview-square.png",
 	"main": "stayClosed.js",
 	"readme": "README.md",
-	"tags": ["now playing", "sidebar", "utility"]
+	"tags": [
+		"now playing",
+		"sidebar",
+		"utility"
+	]
 }
