@@ -1,8 +1,8 @@
 # Stay Closed
 
-![preview](preview-square.png)
+![preview](preview-diagram-ready.png)
 
-*Marketplace cover uses a cropped, proportionally scaled Spotify screenshot.*
+*Illustration of the Now Playing sidebar, sized for Marketplace without stretching.*
 
 Stop Spotify's Now Playing view from popping open on its own. It still opens when you ask for it.
 
@@ -60,7 +60,7 @@ Related changes are combined under clean release versions.
 
 ### v1.1.0
 
-- New square Marketplace preview with an actual Spotify screenshot, without stretching.
+- Sharper square Marketplace illustration showing the Now Playing sidebar, without stretching.
 
 - Switches off Spotify's **Show the now-playing panel on click of play** setting while enabled and restores the original choice when disabled.
 
